@@ -1,0 +1,5 @@
+[2025-06-27T17:26:01.792Z] [INFO] MinAI JavaScript server running on port 8080
+[2025-06-27T17:26:01.794Z] [INFO] Configuration: http://localhost:8080/config
+[2025-06-27T17:26:01.794Z] [INFO] Health check: http://localhost:8080/health
+[2025-06-27T17:26:01.794Z] [INFO] Features: Self-Narrator, Translation, Dungeonmaster
+[2025-06-27T17:28:16.617Z] [INFO] GET /health
