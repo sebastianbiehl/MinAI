@@ -1,34 +1,10 @@
 <?php
-$cleanedMessage = GetCleanedMessage();
+// Simple narrator prompts for MinAI minimal
 
-// Register prompts only if specifically requested
-if ($GLOBALS["gameRequest"][0] == "chatnf_minai_narrate") {
-    SetNarratorProfile();
-    $narratePrompt = "The Narrator: {$cleanedMessage}";
-    $GLOBALS["PROMPTS"]["chatnf_minai_narrate"] = [
-        "cue"=>[
-        ],
-        "player_request"=>[$narratePrompt]
-    ];
-    OverrideGameRequestPrompt($narratePrompt);
+function info_narrate($target) {
+    return "Think about what just happened and your feelings about it.";
 }
 
-if ($GLOBALS["gameRequest"][0] == "minai_narrate") {
-    SetNarratorProfile();
-    $narratePrompt = "The Narrator: {$cleanedMessage}";
-    $GLOBALS["PROMPTS"]["minai_narrate"] = [
-        "cue"=>[],
-        "player_request"=>[$narratePrompt]
-    ];
-    OverrideGameRequestPrompt($narratePrompt);
-} 
-
-if ($GLOBALS["gameRequest"][0] == "info_minai_narrate") {
-    SetNarratorProfile();
-    $narratePrompt = "The Narrator: {$cleanedMessage}";
-    $GLOBALS["PROMPTS"]["info_minai_narrate"] = [
-        "cue"=>[],
-        "player_request"=>[$narratePrompt]
-    ];
-    OverrideGameRequestPrompt($narratePrompt);
-} 
+function info_self_thoughts($target) {
+    return "Express your internal thoughts about the current situation.";
+}

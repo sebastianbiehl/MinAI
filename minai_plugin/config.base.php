@@ -6,7 +6,7 @@ $GLOBALS['devious_narrator_eldritch_voice'] = "dragon";
 $GLOBALS['devious_narrator_telvanni_voice'] = "TelvanniNarrator";
 $GLOBALS['self_narrator'] = false;
 $GLOBALS['force_voice_type'] = false;
-$GLOBALS['disable_nsfw'] = false;
+$GLOBALS['disable_nsfw'] = true;
 $GLOBALS['restrict_nonfollower_functions'] = true;
 $GLOBALS['always_enable_functions'] = true;
 $GLOBALS['force_aiff_name_to_ingame_name'] = true;
@@ -27,81 +27,72 @@ $GLOBALS['use_llm_fallback'] = false;
 $GLOBALS['enforce_single_json'] = false;
 $GLOBALS['CHIM_NO_EXAMPLES'] = false;
 
-// Context Builder Configuration - controls which sections are included in the system prompt
+// Context Builder Configuration - Minimal setup for narrator and translation only
 $GLOBALS['minai_context'] = array(
-    // Character context builders
-    'physical_description' => true,
-    'equipment' => true,
-    'tattoos' => true,
-    'arousal' => true,
-    'fertility' => true,
-    'following' => true,
-    'survival' => true,
+    // Basic character context
+    'physical_description' => false,
+    'equipment' => false,
+    'tattoos' => false,
+    'arousal' => false,
+    'fertility' => false,
+    'following' => false,
+    'survival' => false,
     'player_status' => true,
-    'bounty' => true,
-    'mind_influence' => true,
+    'bounty' => false,
+    'mind_influence' => false,
     'dynamic_state' => true,
-    'career' => true,
-    'dirt_and_blood' => true,
-    'level' => true,
-    'family_status' => true,
-    'party_membership' => true,
-    'combat' => true,
-    'vitals' => true,
+    'career' => false,
+    'dirt_and_blood' => false,
+    'level' => false,
+    'family_status' => false,
+    'party_membership' => false,
+    'combat' => false,
+    'vitals' => false,
 
-    // Core context builders
+    // Core context builders (essential for character)
     'personality' => true,
     'interaction' => true,
     'player_background' => true,
-    'current_task' => true,
+    'current_task' => false,
     
-    // Environmental context builders
-    'day_night_state' => true,
-    'weather' => true,
-    'moon_phase' => true,
+    // Environmental context builders (minimal)
+    'day_night_state' => false,
+    'weather' => false,
+    'moon_phase' => false,
     'location' => true,
-    'frostfall' => true,
-    'character_state' => true,
-    'nearby_characters' => true,
-    'npc_relationships' => true,
-    'third_party' => true,
-    'nearby_buildings' => true,
+    'frostfall' => false,
+    'character_state' => false,
+    'nearby_characters' => false,
+    'npc_relationships' => false,
+    'third_party' => false,
+    'nearby_buildings' => false,
     
-    // Relationship context builders
-    'relationship' => true,
-    'relative_power' => true,
-    'devious_follower' => true,
-    'submissive_lola' => true,
-    'devious_narrator' => true,
+    // Relationship context builders (disabled)
+    'relationship' => false,
+    'relative_power' => false,
+    'devious_follower' => false,
+    'submissive_lola' => false,
+    'devious_narrator' => false,
     
-    // NSFW context builders
-    'nsfw_reputation' => true,
+    // NSFW context builders (disabled)
+    'nsfw_reputation' => false,
     
     // System prompt settings
     'response_guidelines' => true,
-    'action_enforcement' => true
+    'action_enforcement' => false
 );
 
 // Inventory system configuration
 $GLOBALS['inventory_items_limit'] = 5; // Number of Items to expose to LLM from an actor's inventory
 $GLOBALS['use_item_relevancy_scoring'] = false; // Use relevancy scoring for items
 
-// Default action prompts with variables
+// Minimal action prompts - only narrator and basic dialogue
 $GLOBALS['action_prompts'] = Array(
-    "singing" => "Respond with a song from #player_name#. Be creative, and match the mood of the scene.",
-    
-    "self_narrator_explicit" => "Respond as #target# with raw, immediate reactions to what's happening right now - speak out loud or think to yourself exactly how you feel in this moment. Express genuine emotions like fear, pleasure, anger, or excitement. Keep it natural and direct - say what someone would really say or think in this situation, emphasizing the most recent dialogue or event.",
-    
     "self_narrator_normal" => "Respond as #player_name#, thinking privately to #player_object#self about the current situation and recent events. Stay in first person, capturing #player_possessive# genuine thoughts, emotions, and internal conflicts. Focus on #player_possessive# personal perspective, biases, and feelings rather than an objective summary of events. Keep the response introspective and true to how #player_name# would process and react internally.",
 
-    //"explicit_scene" => "Respond to #target# as #herika_name# would in this intimate situation. Choose an appropriate action that reflects #herika_name#'s desires and the scene context. Express #herika_name#'s reactions and feelings naturally emphasizing the #SEX_SCENARIO, then use an action that advances the intimate nature of the scene in a meaningful way.", 
-    //'Respond to' could lead to double or triple answers. Also the 'then ... action ' could lead to a double comment for action. Proposed change is an attempt to make this an enforcing of previous TEMPLATE_DIALOG instruction instead of a separate directive leading to multiple answers. 
-    "explicit_scene" => "Your answer for #target# should reflect what #herika_name# would say in this intimate situation. Express #herika_name#'s reactions and feelings naturally emphasizing the #SEX_SCENARIO, you could specify the details that #herika_name# finds pleasant or unpleasant and how #herika_name# would like to continue the action. Review dialogue history to be able to avoid repeating or reformulating sentences from previous dialog lines. You could use an appropriate action that reflects #herika_name#'s desires, the scene context and advances the intimate nature of the scene in a meaningful way.",
+    "normal_scene" => "Your answer for #target# should reflect what #herika_name# would say in this situation. Express #herika_name#'s own thoughts, use vocabulary and speaking style that reflects #herika_name#'s personality. This response should feel authentic and progress the scene or conversation naturally. Review dialogue history to be able to avoid repeating or reformulating sentences from previous dialog lines.",
 
-    //"normal_scene" => "Respond to #target# as #herika_name# would in this situation. Express your thoughts or dialogue naturally, then consider boldly using an appropriate action that aligns with your character's personality and objectives. Your response should feel authentic and progress the scene or conversation naturally.", 
-    "normal_scene" => "Your answer for #target# should reflect what #herika_name# would say in this situation. Express #herika_name#'s own thoughts, use vocabulary and speaking style that reflects #herika_name#'s personality. This response should feel authentic and progress the scene or conversation naturally. Review dialogue history to be able to avoid repeating or reformulating sentences from previous dialog lines. Consider boldly using an appropriate action that aligns with your character's personality and objectives.",
-
-    // Diary prompts
+    // Diary prompts (keeping these as they're useful for character development)
     "player_diary" => "#player_name# regularly keeps a diary, which you are now tasked to update. Please write a several page story of #player_name#'s recent thoughts, feelings, and adventures. Respond as if you are writing this into a private diary, including completely unfiltered thoughts and feelings. WRITE AS IF YOU ARE #player_name# WRITING INTO A PRIVATE DIARY.",
     
     "follower_diary" => "#herika_name# regularly keeps a diary, which you are now tasked to update. Please write a several page story of #herika_name#'s  recent thoughts, feelings, and adventures. Respond as if you are writing this into a private diary, including completely unfiltered thoughts and feelings. WRITE AS IF YOU ARE #herika_name# WRITING INTO A PRIVATE DIARY."

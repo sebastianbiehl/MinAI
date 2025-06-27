@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinAI - Narrator & Translation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .feature-section {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .feature-section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        
+        .setting-group {
+            margin: 15px 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 8px 12px;
+            background: #404040;
+            border: 1px solid #606060;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .save-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .save-button:hover {
+            background: #45a049;
+        }
+        
+        .description {
+            color: #b0b0b0;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .status.success {
+            background: rgba(64, 192, 87, 0.2);
+            color: #40c057;
+            border: 1px solid #40c057;
+        }
+        
+        .status.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MinAI Configuration</h1>
+        <p style="text-align: center; color: #b0b0b0;">Simplified MinAI with Self Narrator and Translation features</p>
+        
+        <div id="status"></div>
+        
+        <form id="configForm">
+            <div class="feature-section">
+                <h2>🧠 Self Narrator</h2>
+                <p class="description">Generate internal player thoughts and reactions to situations</p>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="self_narrator" checked>
+                        Enable Self Narrator
+                    </label>
+                    <div class="description">Allow the AI to generate your character's internal thoughts</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="narrator_voice">Narrator Voice:</label>
+                    <select id="narrator_voice">
+                        <option value="dragon">Dragon (Default)</option>
+                        <option value="maleeventoned">Male Even-Toned</option>
+                        <option value="femaleeventoned">Female Even-Toned</option>
+                        <option value="malecommoner">Male Commoner</option>
+                        <option value="femalecommoner">Female Commoner</option>
+                    </select>
+                    <div class="description">Voice used for narrator thoughts</div>
+                </div>
+            </div>
+            
+            <div class="feature-section">
+                <h2>🗣️ Translation</h2>
+                <p class="description">Convert casual speech to character-appropriate dialogue</p>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="translation_enabled" checked>
+                        Enable Translation
+                    </label>
+                    <div class="description">Convert casual player input to character voice</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="player_voice_model">Player Voice:</label>
+                    <select id="player_voice_model">
+                        <option value="femaleeventoned">Female Even-Toned (Default)</option>
+                        <option value="maleeventoned">Male Even-Toned</option>
+                        <option value="femalecommoner">Female Commoner</option>
+                        <option value="malecommoner">Male Commoner</option>
+                        <option value="femalecondescending">Female Condescending</option>
+                        <option value="malecondescending">Male Condescending</option>
+                    </select>
+                    <div class="description">Voice used for translated player dialogue</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="auto_translation">
+                        Auto-detect casual speech
+                    </label>
+                    <div class="description">Automatically translate when casual language is detected</div>
+                </div>
+            </div>
+            
+            <div class="feature-section">
+                <h2>⚙️ General Settings</h2>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="minai_enabled" checked>
+                        Enable MinAI
+                    </label>
+                    <div class="description">Master switch for all MinAI features</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="context_messages">Context Messages:</label>
+                    <input type="number" id="context_messages" value="10" min="1" max="50">
+                    <div class="description">Number of previous messages to include for context</div>
+                </div>
+            </div>
+            
+            <button type="submit" class="save-button">Save Configuration</button>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById('configForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const config = {
+                self_narrator: document.getElementById('self_narrator').checked,
+                narrator_voice: document.getElementById('narrator_voice').value,
+                translation_enabled: document.getElementById('translation_enabled').checked,
+                player_voice_model: document.getElementById('player_voice_model').value,
+                auto_translation: document.getElementById('auto_translation').checked,
+                minai_enabled: document.getElementById('minai_enabled').checked,
+                context_messages: parseInt(document.getElementById('context_messages').value)
+            };
+            
+            fetch('/HerikaServer/ext/minai_plugin/api/config.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(config)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const statusDiv = document.getElementById('status');
+                if (data.success) {
+                    statusDiv.innerHTML = '<div class="status success">Configuration saved successfully!</div>';
+                } else {
+                    statusDiv.innerHTML = '<div class="status error">Error saving configuration: ' + (data.message || 'Unknown error') + '</div>';
+                }
+            })
+            .catch(error => {
+                const statusDiv = document.getElementById('status');
+                statusDiv.innerHTML = '<div class="status error">Network error: ' + error.message + '</div>';
+            });
+        });
+        
+        // Load current configuration
+        fetch('/HerikaServer/ext/minai_plugin/api/config.php')
+        .then(response => response.json())
+        .then(config => {
+            if (config.self_narrator !== undefined) document.getElementById('self_narrator').checked = config.self_narrator;
+            if (config.narrator_voice) document.getElementById('narrator_voice').value = config.narrator_voice;
+            if (config.translation_enabled !== undefined) document.getElementById('translation_enabled').checked = config.translation_enabled;
+            if (config.player_voice_model) document.getElementById('player_voice_model').value = config.player_voice_model;
+            if (config.auto_translation !== undefined) document.getElementById('auto_translation').checked = config.auto_translation;
+            if (config.minai_enabled !== undefined) document.getElementById('minai_enabled').checked = config.minai_enabled;
+            if (config.context_messages) document.getElementById('context_messages').value = config.context_messages;
+        })
+        .catch(error => {
+            console.log('Could not load existing configuration:', error);
+        });
+    </script>
+</body>
+</html>
