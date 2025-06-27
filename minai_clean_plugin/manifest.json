@@ -1,0 +1,5 @@
+{
+    "name":"minai_clean",
+    "description":"Clean fork of MinAI with core features only: Self Narrator, Roleplay/Translation, and DungeonMaster",
+    "config_url":"/HerikaServer/ext/minai_clean_plugin/index.html"
+}
