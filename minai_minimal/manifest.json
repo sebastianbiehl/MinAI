@@ -1,0 +1,6 @@
+
+{
+    "name":"minai",
+    "description":"Minimal extension for CHIM providing self narrator and translation features for immersive roleplay.",
+    "config_url":"/HerikaServer/ext/minai_plugin/index.html"
+ }
