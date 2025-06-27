@@ -1,21 +1,30 @@
 <?php
+// Prevent multiple inclusions
+if (!defined('MINAI_UTIL_LOADED')) {
+    define('MINAI_UTIL_LOADED', true);
+
 // Avoid processing for fast / storage events
 if (isset($GLOBALS["minai_skip_processing"]) && $GLOBALS["minai_skip_processing"]) {
     return;
 }
 require_once("logger.php");
-define("MINAI_ACTOR_VALUE_CACHE", "minai_actor_value_cache");
+if (!defined("MINAI_ACTOR_VALUE_CACHE")) {
+    define("MINAI_ACTOR_VALUE_CACHE", "minai_actor_value_cache");
+}
 // Database functionality disabled in minimal version
 // require_once("db_utils.php");
 // require_once("importDataToDB.php");
 require_once("mock_db.php"); // Mock database for minimal version
 require_once("mind_influence.php");
 
-$GLOBALS[MINAI_ACTOR_VALUE_CACHE] = [];
+if (!isset($GLOBALS[MINAI_ACTOR_VALUE_CACHE])) {
+    $GLOBALS[MINAI_ACTOR_VALUE_CACHE] = [];
+}
 $targetOverride = null;
 
 // Get Value from the cache. $name/$key should be lowercase
-Function GetActorValueCache($name, $key) {
+if (!function_exists('GetActorValueCache')) {
+function GetActorValueCache($name, $key) {
     if (isset($GLOBALS[MINAI_ACTOR_VALUE_CACHE][$name])
         && isset($GLOBALS[MINAI_ACTOR_VALUE_CACHE][$name][$key])
     ) {
@@ -26,16 +35,20 @@ Function GetActorValueCache($name, $key) {
         return null;
     }
 }
+}
 
 // Check if actor value has been cached. $name/$key should be lowercase
-Function HasActorValueCache($name, $key=null) {
+if (!function_exists('HasActorValueCache')) {
+function HasActorValueCache($name, $key=null) {
     if ($key === null) {
         return isset($GLOBALS[MINAI_ACTOR_VALUE_CACHE][$name]);
     }
     return isset($GLOBALS[MINAI_ACTOR_VALUE_CACHE][$name]) && isset($GLOBALS[MINAI_ACTOR_VALUE_CACHE][$name][$key]);
 }
+}
 
-Function BuildActorValueCache($name) {
+if (!function_exists('BuildActorValueCache')) {
+function BuildActorValueCache($name) {
     $name = strtolower($name);
     $GLOBALS[MINAI_ACTOR_VALUE_CACHE][$name] = [];
 

@@ -1,0 +1,22 @@
+{
+    "name": "MinAI Bridge",
+    "description": "Clean JavaScript implementation of MinAI with self-narrator, translation, and dungeonmaster features",
+    "version": "2.0.0",
+    "author": "MinAI",
+    "config_url": "/HerikaServer/ext/minai_bridge/index.html",
+    "api_endpoints": [
+        "/HerikaServer/ext/minai_bridge/api/config.php",
+        "/HerikaServer/ext/minai_bridge/api/status.php"
+    ],
+    "features": [
+        "self_narrator",
+        "translation", 
+        "dungeonmaster"
+    ],
+    "requirements": {
+        "node": ">=16.0.0",
+        "npm": ">=7.0.0"
+    },
+    "auto_start": true,
+    "backend_port": 8080
+}

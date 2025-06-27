@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinAI JavaScript Configuration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .feature-section {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .feature-section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .setting-group {
+            margin: 15px 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+        
+        input[type="text"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background: #404040;
+            border: 1px solid #606060;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .save-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s ease;
+        }
+        
+        .save-button:hover {
+            background: #45a049;
+        }
+        
+        .save-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .description {
+            color: #b0b0b0;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        
+        .status {
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: rgba(64, 192, 87, 0.2);
+            color: #40c057;
+            border: 1px solid #40c057;
+        }
+        
+        .status.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
+        
+        .status.info {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+            border: 1px solid #2196f3;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+        
+        .test-button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .test-button:hover {
+            background: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 MinAI JavaScript Configuration</h1>
+        <div class="subtitle">Clean & Simple AI for Skyrim - Narrator, Translation & Dungeonmaster</div>
+        
+        <div id="status"></div>
+        
+        <form id="configForm">
+            <div class="feature-section">
+                <h2>🤖 AI API Configuration</h2>
+                <div class="setting-group">
+                    <label for="api_provider">AI Provider:</label>
+                    <select id="api_provider">
+                        <option value="openrouter">OpenRouter (Recommended)</option>
+                        <option value="openai">OpenAI</option>
+                    </select>
+                    <div class="description">Choose your AI API provider</div>
+                </div>
+                
+                <div id="openrouter_config">
+                    <div class="setting-group">
+                        <label for="openrouter_api_key">OpenRouter API Key:</label>
+                        <input type="password" id="openrouter_api_key" placeholder="sk-or-...">
+                        <div class="description">Get your API key from <a href="https://openrouter.ai" target="_blank" style="color: #4CAF50;">openrouter.ai</a></div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="openrouter_model">Model:</label>
+                        <input type="text" id="openrouter_model" placeholder="google/gemma-2-9b-it:free">
+                        <div class="description">OpenRouter model name (e.g., google/gemma-2-9b-it:free for free tier)</div>
+                    </div>
+                </div>
+                
+                <div id="openai_config" style="display: none;">
+                    <div class="setting-group">
+                        <label for="openai_api_key">OpenAI API Key:</label>
+                        <input type="password" id="openai_api_key" placeholder="sk-...">
+                        <div class="description">Get your API key from <a href="https://platform.openai.com" target="_blank" style="color: #4CAF50;">OpenAI Platform</a></div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="openai_model">Model:</label>
+                        <select id="openai_model">
+                            <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                            <option value="gpt-4">GPT-4</option>
+                            <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                        </select>
+                        <div class="description">OpenAI model to use</div>
+                    </div>
+                </div>
+                
+                <button type="button" class="test-button" onclick="testAPI()">Test API Connection</button>
+            </div>
+            
+            <div class="two-column">
+                <div class="feature-section">
+                    <h2>🧠 Self Narrator</h2>
+                    <div class="setting-group">
+                        <label>
+                            <input type="checkbox" id="self_narrator" checked>
+                            Enable Self Narrator
+                        </label>
+                        <div class="description">Generate internal player thoughts and reactions</div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="narrator_voice">Narrator Voice:</label>
+                        <input type="text" id="narrator_voice" placeholder="dragon">
+                        <div class="description">Voice model for narrator thoughts</div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="narrator_prompt">Custom Narrator Prompt:</label>
+                        <textarea id="narrator_prompt" placeholder="Leave empty to use default..."></textarea>
+                        <div class="description">Custom prompt for narrator responses (optional)</div>
+                    </div>
+                </div>
+                
+                <div class="feature-section">
+                    <h2>🗣️ Translation</h2>
+                    <div class="setting-group">
+                        <label>
+                            <input type="checkbox" id="translation" checked>
+                            Enable Translation
+                        </label>
+                        <div class="description">Convert casual speech to character dialogue</div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="player_voice">Player Voice:</label>
+                        <input type="text" id="player_voice" placeholder="femaleeventoned">
+                        <div class="description">Voice model for translated player dialogue</div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="translation_prompt">Custom Translation Prompt:</label>
+                        <textarea id="translation_prompt" placeholder="Leave empty to use default..."></textarea>
+                        <div class="description">Custom prompt for translation (optional)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-section">
+                <h2>🎲 Dungeonmaster</h2>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="dungeonmaster" checked>
+                        Enable Dungeonmaster
+                    </label>
+                    <div class="description">Generate events that NPCs treat as canonical</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="dungeonmaster_prompt">Custom Dungeonmaster Prompt:</label>
+                    <textarea id="dungeonmaster_prompt" placeholder="Leave empty to use default..."></textarea>
+                    <div class="description">Custom prompt for dungeonmaster events (optional)</div>
+                </div>
+            </div>
+            
+            <div class="feature-section">
+                <h2>👤 Character Settings</h2>
+                <div class="two-column">
+                    <div class="setting-group">
+                        <label for="player_name">Player Name:</label>
+                        <input type="text" id="player_name" placeholder="Player">
+                        <div class="description">Your character's name</div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="player_race">Player Race:</label>
+                        <input type="text" id="player_race" placeholder="Nord">
+                        <div class="description">Your character's race</div>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="player_gender">Player Gender:</label>
+                    <select id="player_gender">
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                    <div class="description">Your character's gender</div>
+                </div>
+            </div>
+            
+            <div class="feature-section">
+                <h2>⚙️ Advanced Settings</h2>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="nsfw_enabled">
+                        Enable NSFW Content
+                    </label>
+                    <div class="description">Allow mature/adult content in responses</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="max_context_messages">Context Messages:</label>
+                    <input type="number" id="max_context_messages" value="10" min="1" max="50">
+                    <div class="description">Number of previous messages to include for context</div>
+                </div>
+            </div>
+            
+            <button type="submit" class="save-button">💾 Save Configuration</button>
+        </form>
+    </div>
+    
+    <script>
+        // API provider switching
+        document.getElementById('api_provider').addEventListener('change', function() {
+            const provider = this.value;
+            document.getElementById('openrouter_config').style.display = provider === 'openrouter' ? 'block' : 'none';
+            document.getElementById('openai_config').style.display = provider === 'openai' ? 'block' : 'none';
+        });
+        
+        // Load configuration on page load
+        window.addEventListener('load', loadConfiguration);
+        
+        async function loadConfiguration() {
+            try {
+                const response = await fetch('/api/config');
+                const config = await response.json();
+                
+                // API Configuration
+                document.getElementById('api_provider').value = config.api?.provider || 'openrouter';
+                document.getElementById('api_provider').dispatchEvent(new Event('change'));
+                
+                // OpenRouter config
+                document.getElementById('openrouter_api_key').value = config.api?.openrouter?.api_key || '';
+                document.getElementById('openrouter_model').value = config.api?.openrouter?.model || 'google/gemma-2-9b-it:free';
+                
+                // OpenAI config
+                document.getElementById('openai_api_key').value = config.api?.openai?.api_key || '';
+                document.getElementById('openai_model').value = config.api?.openai?.model || 'gpt-3.5-turbo';
+                
+                // Voice Configuration
+                document.getElementById('narrator_voice').value = config.voice?.narrator_voice || 'dragon';
+                document.getElementById('player_voice').value = config.voice?.player_voice || 'femaleeventoned';
+                
+                // Features
+                document.getElementById('self_narrator').checked = config.features?.self_narrator !== false;
+                document.getElementById('translation').checked = config.features?.translation !== false;
+                document.getElementById('dungeonmaster').checked = config.features?.dungeonmaster !== false;
+                document.getElementById('nsfw_enabled').checked = config.features?.nsfw_enabled === true;
+                
+                // Prompts
+                document.getElementById('narrator_prompt').value = config.prompts?.narrator_prompt || '';
+                document.getElementById('translation_prompt').value = config.prompts?.translation_prompt || '';
+                document.getElementById('dungeonmaster_prompt').value = config.prompts?.dungeonmaster_prompt || '';
+                
+                // Character
+                document.getElementById('player_name').value = config.character?.player_name || 'Player';
+                document.getElementById('player_race').value = config.character?.player_race || 'Nord';
+                document.getElementById('player_gender').value = config.character?.player_gender || 'Female';
+                
+                // Context
+                document.getElementById('max_context_messages').value = config.context?.max_context_messages || 10;
+                
+                showStatus('Configuration loaded successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error loading configuration:', error);
+                showStatus('Error loading configuration: ' + error.message, 'error');
+            }
+        }
+        
+        // Save configuration
+        document.getElementById('configForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const saveButton = document.querySelector('.save-button');
+            saveButton.disabled = true;
+            saveButton.textContent = '💾 Saving...';
+            
+            try {
+                const config = {
+                    api: {
+                        provider: document.getElementById('api_provider').value,
+                        openrouter: {
+                            api_key: document.getElementById('openrouter_api_key').value,
+                            model: document.getElementById('openrouter_model').value
+                        },
+                        openai: {
+                            api_key: document.getElementById('openai_api_key').value,
+                            model: document.getElementById('openai_model').value
+                        }
+                    },
+                    voice: {
+                        narrator_voice: document.getElementById('narrator_voice').value,
+                        player_voice: document.getElementById('player_voice').value
+                    },
+                    features: {
+                        self_narrator: document.getElementById('self_narrator').checked,
+                        translation: document.getElementById('translation').checked,
+                        dungeonmaster: document.getElementById('dungeonmaster').checked,
+                        nsfw_enabled: document.getElementById('nsfw_enabled').checked
+                    },
+                    prompts: {
+                        narrator_prompt: document.getElementById('narrator_prompt').value,
+                        translation_prompt: document.getElementById('translation_prompt').value,
+                        dungeonmaster_prompt: document.getElementById('dungeonmaster_prompt').value
+                    },
+                    character: {
+                        player_name: document.getElementById('player_name').value,
+                        player_race: document.getElementById('player_race').value,
+                        player_gender: document.getElementById('player_gender').value
+                    },
+                    context: {
+                        max_context_messages: parseInt(document.getElementById('max_context_messages').value)
+                    }
+                };
+                
+                const response = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(config)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showStatus('Configuration saved successfully! 🎉', 'success');
+                } else {
+                    showStatus('Error saving configuration: ' + result.message, 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error saving configuration:', error);
+                showStatus('Error saving configuration: ' + error.message, 'error');
+            }
+            
+            saveButton.disabled = false;
+            saveButton.textContent = '💾 Save Configuration';
+        });
+        
+        // Test API connection
+        async function testAPI() {
+            const testButton = document.querySelector('.test-button');
+            testButton.disabled = true;
+            testButton.textContent = 'Testing...';
+            
+            try {
+                const provider = document.getElementById('api_provider').value;
+                const apiKey = document.getElementById(`${provider}_api_key`).value;
+                const model = document.getElementById(`${provider}_model`).value;
+                
+                if (!apiKey) {
+                    showStatus('Please enter an API key first', 'error');
+                    return;
+                }
+                
+                // Simple test request
+                const testConfig = {
+                    api: {
+                        provider: provider,
+                        [provider]: {
+                            api_key: apiKey,
+                            model: model
+                        }
+                    }
+                };
+                
+                // Send test request to server
+                const response = await fetch('/api/test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testConfig)
+                });
+                
+                if (response.ok) {
+                    showStatus('API connection successful! ✅', 'success');
+                } else {
+                    showStatus('API connection failed. Check your credentials.', 'error');
+                }
+                
+            } catch (error) {
+                showStatus('API test failed: ' + error.message, 'error');
+            }
+            
+            testButton.disabled = false;
+            testButton.textContent = 'Test API Connection';
+        }
+        
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusDiv.innerHTML = '';
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
