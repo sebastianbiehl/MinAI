@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MinAI Bridge Simple</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: #e0e0e0; }
+        .container { max-width: 600px; margin: 0 auto; background: #2d2d2d; padding: 20px; border-radius: 10px; }
+        .status { padding: 10px; border-radius: 5px; margin: 10px 0; }
+        .success { background: #4CAF50; color: white; }
+        .error { background: #f44336; color: white; }
+        .btn { background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MinAI Bridge Simple</h1>
+        <p>Simplified bridge to JavaScript MinAI backend</p>
+        
+        <div id="status">Checking backend status...</div>
+        
+        <h3>Configuration</h3>
+        <p>The backend configuration is available at:</p>
+        <a href="http://localhost:8080/config" target="_blank" class="btn">Open Backend Config</a>
+        
+        <h3>How it works</h3>
+        <p>This simple bridge:</p>
+        <ul>
+            <li>Automatically starts the JavaScript backend when needed</li>
+            <li>Forwards MinAI requests to the backend</li>
+            <li>Returns responses to HerikaServer</li>
+        </ul>
+        
+        <h3>Troubleshooting</h3>
+        <p>If something's not working:</p>
+        <ul>
+            <li>Check that Node.js is installed</li>
+            <li>Make sure port 8080 is available</li>
+            <li>Check server error logs</li>
+        </ul>
+    </div>
+    
+    <script>
+        // Check backend status
+        fetch('http://localhost:8080/health')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').innerHTML = 
+                    '<div class="status success">✅ Backend is running</div>';
+            })
+            .catch(error => {
+                document.getElementById('status').innerHTML = 
+                    '<div class="status error">❌ Backend is not running</div>';
+            });
+    </script>
+</body>
+</html>

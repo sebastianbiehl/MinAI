@@ -1,0 +1,7 @@
+{
+    "name": "MinAI Bridge Simple",
+    "description": "Simple bridge to JavaScript MinAI backend",
+    "version": "1.0.0",
+    "author": "MinAI",
+    "config_url": "/HerikaServer/ext/minai_bridge_simple/index.html"
+}

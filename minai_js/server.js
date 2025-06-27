@@ -29,27 +29,36 @@ app.use((req, res, next) => {
 // Main endpoint that mimics HerikaServer's main.php
 app.post('/', async (req, res) => {
     try {
-        // Extract gameRequest from the request body
-        // This mimics how the original PHP system receives requests
-        let gameRequest = [];
+        // Extract request data from the request body
+        let requestType, speaker, target, message, additionalData;
         
         if (req.body.gameRequest) {
-            gameRequest = req.body.gameRequest;
-        } else if (req.body.requests) {
-            // Handle array format
-            gameRequest = req.body.requests[0] || [];
+            // Original format: gameRequest array
+            const gameRequest = req.body.gameRequest;
+            requestType = gameRequest[0] || '';
+            speaker = gameRequest[1] || '';
+            target = gameRequest[2] || '';
+            message = gameRequest[3] || '';
+            additionalData = gameRequest[4] || '';
+        } else if (req.body.type) {
+            // Bridge format: structured object
+            requestType = req.body.type || '';
+            speaker = req.body.speaker || '';
+            target = req.body.target || '';
+            message = req.body.message || '';
+            additionalData = req.body.extra || '';
+        } else if (Array.isArray(req.body)) {
+            // Direct array format
+            requestType = req.body[0] || '';
+            speaker = req.body[1] || '';
+            target = req.body[2] || '';
+            message = req.body[3] || '';
+            additionalData = req.body[4] || '';
         } else {
-            // Handle direct array format
-            gameRequest = Array.isArray(req.body) ? req.body : [];
+            throw new Error('Invalid request format');
         }
 
-        logger.log('Received gameRequest:', gameRequest);
-
-        const requestType = gameRequest[0] || '';
-        const speaker = gameRequest[1] || '';
-        const target = gameRequest[2] || '';
-        const message = gameRequest[3] || '';
-        const additionalData = gameRequest[4] || '';
+        logger.log('Received request:', { requestType, speaker, target, message: message.substring(0, 100) });
 
         // Skip fast commands that don't need processing
         const fastCommands = [

@@ -3,3 +3,13 @@
 [2025-06-27T17:26:01.794Z] [INFO] Health check: http://localhost:8080/health
 [2025-06-27T17:26:01.794Z] [INFO] Features: Self-Narrator, Translation, Dungeonmaster
 [2025-06-27T17:28:16.617Z] [INFO] GET /health
+[2025-06-27T18:07:09.339Z] [INFO] MinAI JavaScript server running on port 8080
+[2025-06-27T18:07:09.341Z] [INFO] Configuration: http://localhost:8080/config
+[2025-06-27T18:07:09.341Z] [INFO] Health check: http://localhost:8080/health
+[2025-06-27T18:07:09.341Z] [INFO] Features: Self-Narrator, Translation, Dungeonmaster
+[2025-06-27T18:09:18.131Z] [INFO] GET /health
+[2025-06-27T18:09:27.280Z] [INFO] POST /
+[2025-06-27T18:09:27.281Z] [INFO] Received request: {"requestType":"minai_translate","speaker":"Player","target":"","message":"hey dude whats up"}
+[2025-06-27T18:09:27.281Z] [INFO] Processing translation request: minai_translate {"speaker":"Player","target":""}
+[2025-06-27T18:09:27.282Z] [ERROR] Error in translation processing: {}
+[2025-06-27T18:09:27.283Z] [INFO] Sending response: {"action":"error","target":"Player","dialogue":"Translation error: API key not configured","tts":null}

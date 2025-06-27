@@ -1,0 +1,6 @@
+
+{
+    "name":"minai_bridge",
+    "description":"MinAI Bridge - Provides self narrator, translation and dungeonmaster features via clean JavaScript backend.",
+    "config_url":"/HerikaServer/ext/minai_bridge_complete/index.html"
+ }

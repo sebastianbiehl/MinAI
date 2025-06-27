@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinAI Bridge Plugin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.healthy {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .config-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .config-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MinAI Bridge Plugin</h1>
+        <p>This plugin bridges MinAI functionality from PHP to a clean JavaScript implementation.</p>
+        
+        <h2>Features</h2>
+        <ul>
+            <li><strong>Self-Narrator:</strong> Internal player thoughts and commentary</li>
+            <li><strong>Translation:</strong> Converts casual speech to character dialogue</li>
+            <li><strong>Dungeonmaster:</strong> NPCs treat events as canonical</li>
+        </ul>
+        
+        <h2>Backend Status</h2>
+        <div id="status-container">
+            <div class="status" id="backend-status">Checking backend status...</div>
+        </div>
+        
+        <h2>Configuration</h2>
+        <p>Configure the JavaScript backend server:</p>
+        <a href="http://localhost:8080/config" class="config-link" target="_blank">Backend Configuration</a>
+        <a href="http://localhost:8080/health" class="config-link" target="_blank">Health Check</a>
+        
+        <h2>How It Works</h2>
+        <ol>
+            <li>HerikaServer loads this bridge plugin</li>
+            <li>Bridge automatically starts JavaScript backend server</li>
+            <li>All MinAI requests are forwarded to the JavaScript backend</li>
+            <li>Clean JavaScript modules process the requests</li>
+            <li>Responses are applied back to HerikaServer</li>
+        </ol>
+        
+        <h2>Benefits</h2>
+        <ul>
+            <li>Eliminates PHP function redeclaration errors</li>
+            <li>Clean, maintainable JavaScript implementation</li>
+            <li>Better error handling and logging</li>
+            <li>Easy to configure and extend</li>
+        </ul>
+    </div>
+
+    <script>
+        // Check backend status
+        async function checkBackendStatus() {
+            const statusDiv = document.getElementById('backend-status');
+            try {
+                const response = await fetch('http://localhost:8080/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    statusDiv.className = 'status healthy';
+                    statusDiv.innerHTML = `✅ Backend is healthy<br>Features: ${data.features.join(', ')}<br>Last check: ${new Date(data.timestamp).toLocaleString()}`;
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ Backend is not running<br>Error: ${error.message}<br>Please check if the JavaScript server is started.`;
+            }
+        }
+        
+        // Check status on page load
+        checkBackendStatus();
+        
+        // Check status every 30 seconds
+        setInterval(checkBackendStatus, 30000);
+    </script>
+</body>
+</html>
