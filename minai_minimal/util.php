@@ -5,8 +5,10 @@ if (isset($GLOBALS["minai_skip_processing"]) && $GLOBALS["minai_skip_processing"
 }
 require_once("logger.php");
 define("MINAI_ACTOR_VALUE_CACHE", "minai_actor_value_cache");
-require_once("db_utils.php");
-require_once("importDataToDB.php");
+// Database functionality disabled in minimal version
+// require_once("db_utils.php");
+// require_once("importDataToDB.php");
+require_once("mock_db.php"); // Mock database for minimal version
 require_once("mind_influence.php");
 
 $GLOBALS[MINAI_ACTOR_VALUE_CACHE] = [];

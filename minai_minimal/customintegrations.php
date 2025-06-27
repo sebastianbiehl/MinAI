@@ -3,7 +3,8 @@
 // Impl copied from main.php
 
 require_once("util.php");
-require_once(__DIR__.DIRECTORY_SEPARATOR."updateThreadsDB.php");
+// Database functionality disabled in minimal version
+// require_once(__DIR__.DIRECTORY_SEPARATOR."updateThreadsDB.php");
 require_once(__DIR__.DIRECTORY_SEPARATOR."dungeonmaster.php");
 require_once(__DIR__.DIRECTORY_SEPARATOR."items.php");
 require_once(__DIR__.DIRECTORY_SEPARATOR."utils/narrator_utils.php");

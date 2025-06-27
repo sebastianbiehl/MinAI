@@ -7,9 +7,10 @@ minai_start_timer("prompts_php", "MinAI");
 
 require_once("config.php");
 require_once("util.php");
-require_once("sexPrompts.php");
+// NSFW features disabled in minimal version
+// require_once("sexPrompts.php");
 require_once("customintegrations.php");
-require_once("functions/deviousnarrator.php");
+// require_once("functions/deviousnarrator.php");
 // Custom command / third party integrations support
 // Done here, as this is mounted early in main.php
 ProcessIntegrations();

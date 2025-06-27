@@ -5,9 +5,9 @@ require_once("../config.base.php");
 require_once("../logger.php");
 header('Content-Type: application/json');
 $path = "..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR;
-require_once($path . "conf".DIRECTORY_SEPARATOR."conf.php");
-require_once($path. "lib" .DIRECTORY_SEPARATOR."{$GLOBALS["DBDRIVER"]}.class.php");
-$GLOBALS["db"] = new sql();
+// Database functionality disabled in minimal version
+require_once("../mock_db.php");
+$GLOBALS["db"] = new MockDatabase();
 
 // Load required files
 require_once("../util.php");

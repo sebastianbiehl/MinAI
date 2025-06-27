@@ -4,13 +4,13 @@ header('Content-Type: application/json');
 
 $pluginPath = "/var/www/html/HerikaServer/ext/minai_minimal";
 $path = "..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR;
-require_once($path . "conf".DIRECTORY_SEPARATOR."conf.php");
-require_once($path. "lib" .DIRECTORY_SEPARATOR."{$GLOBALS["DBDRIVER"]}.class.php");
-$GLOBALS["db"] = new sql();
+// Database functionality disabled in minimal version
+require_once("../mock_db.php");
+$GLOBALS["db"] = new MockDatabase();
 require_once("$pluginPath/logger.php");
 require_once("../util.php");
 require_once("../items.php");
-require_once("$pluginPath/db_utils.php");
+// Database utilities not needed in minimal version
 // Ensure required tables exist
 CreateItemsTableIfNotExists();
 

@@ -9,19 +9,20 @@
 require_once("config.php");
 require_once("util.php");
 
-// Include dependencies
+// Include dependencies - minimal version
 require_once("functions/action_builder.php");
-require_once("contextbuilders/deviousfollower_context.php");
 require_once("contextbuilders/system_prompt_context.php");
 require_once("customintegrations.php");
 require_once("contextbuilders/weather_context.php");
-// require_once("reputation.php");
 require_once("contextbuilders/relationship_context.php");
-require_once("contextbuilders/submissivelola_context.php");
 require_once("contextbuilders/dirtandblood_context.php");
-require_once("contextbuilders/exposure_context.php");
-require_once("contextbuilders/fertilitymode_context.php");
 require_once("contextbuilders/equipment_context.php");
-require_once("contextbuilders/tattoos_context.php");
 require_once("utils/profile_utils.php");
 require_once("contextbuilders/crime_context.php");
+
+// NSFW and complex features disabled in minimal version
+// require_once("contextbuilders/deviousfollower_context.php");
+// require_once("contextbuilders/submissivelola_context.php");
+// require_once("contextbuilders/exposure_context.php");
+// require_once("contextbuilders/fertilitymode_context.php");
+// require_once("contextbuilders/tattoos_context.php");

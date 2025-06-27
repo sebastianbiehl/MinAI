@@ -1,7 +1,8 @@
 <?php
 // require_once("config.php");
 require_once("util.php");
-require_once("db_utils.php");
+// Database functionality disabled in minimal version
+require_once("mock_db.php");
 
 /**
  * Add a new item to the database

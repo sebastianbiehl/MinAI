@@ -1,5 +1,6 @@
 <?php
-require_once("/var/www/html/HerikaServer/lib/data_functions.php");
+// HerikaServer data_functions not needed in minimal version
+// require_once("/var/www/html/HerikaServer/lib/data_functions.php");
 // Add the system prompt context builder include
 require_once(__DIR__ . "/contextbuilders/system_prompt_context.php");
 require_once(__DIR__ . "/utils/format_util.php");

@@ -12,8 +12,10 @@ if (!file_exists("$pluginPath/config.php")) {
 require_once("config.php");
 $GLOBALS["TTS_FALLBACK_FNCT"] = function($responseTextUnmooded, $mood, $responseText) {
 
+    // Database functionality disabled in minimal version
+    require_once("mock_db.php");
     if (!isset($GLOBALS["db"]))
-        $GLOBALS["db"] = new sql();
+        $GLOBALS["db"] = new MockDatabase();
     require_once("config.php");
     require_once("util.php");
     if ($GLOBALS["HERIKA_NAME"] == "Player")

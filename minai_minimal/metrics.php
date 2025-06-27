@@ -9,7 +9,8 @@
 define('MINAI_METRICS_DEBUG', false);
 
 require_once("logger.php");
-require_once("db_utils.php");
+// Database functionality disabled in minimal version
+require_once("mock_db.php");
 require_once("utils/metrics_util.php");
 
 // Set content type to JSON
