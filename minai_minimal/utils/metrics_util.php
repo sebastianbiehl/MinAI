@@ -624,6 +624,7 @@ if (!function_exists('minai_configure_log_rotation')) {
  *     // Timer automatically stops when $timer goes out of scope
  * }
  */
+if (!class_exists('MinAITimerScope')) {
 class MinAITimerScope {
     private $timerName;
     private $additionalData;
@@ -686,6 +687,7 @@ class MinAITimerScope {
         $this->stop();
     }
 }
+} // End of class_exists check for MinAITimerScope
 
 } // End of include guard
 
