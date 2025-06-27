@@ -117,6 +117,6 @@ minai_stop_timer('contextProcessing');
 // Update the system prompt (0th entry) with our optimized version
 UpdateSystemPrompt();
 
-require "/var/www/html/HerikaServer/ext/minai_plugin/command_prompt_custom.php";
+require "/var/www/html/HerikaServer/ext/minai_minimal/command_prompt_custom.php";
 minai_stop_timer('context_php');
 // minai_stop_timer('Pre-LLM');

@@ -2,7 +2,7 @@
 
 header('Content-Type: application/json');
 
-$pluginPath = "/var/www/html/HerikaServer/ext/minai_plugin";
+$pluginPath = "/var/www/html/HerikaServer/ext/minai_minimal";
 
 // Always load the base configuration first
 require_once("$pluginPath/config.base.php");

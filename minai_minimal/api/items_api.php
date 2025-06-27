@@ -2,7 +2,7 @@
 // Set headers first
 header('Content-Type: application/json');
 
-$pluginPath = "/var/www/html/HerikaServer/ext/minai_plugin";
+$pluginPath = "/var/www/html/HerikaServer/ext/minai_minimal";
 $path = "..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR;
 require_once($path . "conf".DIRECTORY_SEPARATOR."conf.php");
 require_once($path. "lib" .DIRECTORY_SEPARATOR."{$GLOBALS["DBDRIVER"]}.class.php");

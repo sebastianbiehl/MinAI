@@ -1,7 +1,7 @@
 <?php
 
 $pluginPath = str_replace("/api","", getcwd());
-$path = str_replace("/ext/minai_plugin","", $pluginPath);
+$path = str_replace("/ext/minai_minimal","", $pluginPath);
 require_once($path . "/conf".DIRECTORY_SEPARATOR."conf.php");
 require_once("logger.php");
 require_once("db_utils.php");

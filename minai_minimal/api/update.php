@@ -57,17 +57,17 @@ if ($returnVar !== 0) {
 }
 send_message('progress', "✅ Repository cloned successfully");
 
-// Define the path to the minai_plugin folder in the cloned repository
-$pluginFolder = "$tempDir/minai_plugin";
+// Define the path to the minai_minimal folder in the cloned repository
+$pluginFolder = "$tempDir/minai_minimal";
 
-// Check if the minai_plugin folder exists in the cloned repo
+// Check if the minai_minimal folder exists in the cloned repo
 if (!is_dir($pluginFolder)) {
-    send_message('error', "❌ The minai_plugin folder was not found in the cloned repository");
+    send_message('error', "❌ The minai_minimal folder was not found in the cloned repository");
     exit;
 }
 send_message('progress', "✅ Plugin folder found");
 
-// Update permissions for the minai_plugin folder
+// Update permissions for the minai_minimal folder
 send_message('progress', "🔒 Updating file permissions...");
 $chmodCmd = "chmod -R 0775 $pluginFolder 2>&1";
 exec($chmodCmd, $output, $returnVar);
@@ -79,7 +79,7 @@ if ($returnVar !== 0) {
 }
 send_message('progress', "✅ Permissions updated successfully");
 
-// Copy the contents of minai_plugin to the target directory
+// Copy the contents of minai_minimal to the target directory
 send_message('progress', "📋 Copying new files...");
 $copyCmd = "cp -Rf $pluginFolder/* $repoDir 2>&1";
 exec($copyCmd, $output, $returnVar);

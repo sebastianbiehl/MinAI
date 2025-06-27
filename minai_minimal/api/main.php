@@ -6,19 +6,20 @@ header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Authorizat
 require_once("../logger.php");
 
 $path = "..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR;
-require_once($path . "conf".DIRECTORY_SEPARATOR."conf.php");
-require_once($path. "lib" .DIRECTORY_SEPARATOR."{$GLOBALS["DBDRIVER"]}.class.php");
-$GLOBALS["db"] = new sql();
+// HerikaServer conf not needed in minimal version
+// Database not needed in minimal version
+// Database not needed in minimal version
 // Fix missing config.php warning
-$pluginPath = "/var/www/html/HerikaServer/ext/minai_plugin";
+$pluginPath = "/var/www/html/HerikaServer/ext/minai_minimal";
 if (!file_exists("$pluginPath/config.php")) {
     copy("$pluginPath/config.base.php", "$pluginPath/config.php");
 }
 require_once("..".DIRECTORY_SEPARATOR."config.php");
-require_once("..".DIRECTORY_SEPARATOR."importDataToDB.php");
 require_once("..".DIRECTORY_SEPARATOR."util.php");
-require_once("..".DIRECTORY_SEPARATOR."db_utils.php");
-InitiateDBTables();
+// Database functionality disabled in minimal version
+// require_once("..".DIRECTORY_SEPARATOR."importDataToDB.php");
+// require_once("..".DIRECTORY_SEPARATOR."db_utils.php");
+// InitiateDBTables();
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $data = json_decode(file_get_contents("php://input"), true);
@@ -67,16 +68,11 @@ function handleGetRequest($endpoint) {
 
 // Handle POST requests
 function handlePostRequest($endpoint, $data) {
+    // Database functionality disabled in minimal version
     if ($endpoint === 'reset_personalities') {
-        $GLOBALS["db"]->execQuery("DROP TABLE IF EXISTS minai_x_personalities");
-        unlink(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."xPersonalitiesDBImport".DIRECTORY_SEPARATOR."imported.txt");
-        importXPersonalities();
-        echo json_encode(["message" => "Success"]);
+        echo json_encode(["message" => "Database features not available in minimal version"]);
     } elseif ($endpoint === 'reset_scenes') {
-        $GLOBALS["db"]->execQuery("DROP TABLE IF EXISTS minai_scenes_descriptions");
-        unlink(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."sceneDescriptionsDBImport".DIRECTORY_SEPARATOR."imported.txt");
-        importScenesDescriptions();
-        echo json_encode(["status" => "success"]);
+        echo json_encode(["message" => "Database features not available in minimal version"]);
     } else {
         echo json_encode(["message" => "POST endpoint not found"]);
     }

@@ -4,7 +4,7 @@
  * across the MinAI codebase. Load this file early in the process to ensure these values are
  * available to other components.
  */
-require_once("/var/www/html/HerikaServer/ext/minai_plugin/util.php");
+require_once("/var/www/html/HerikaServer/ext/minai_minimal/util.php");
 
 // Cache target actor
 $GLOBALS["target"] = GetTargetActor();
