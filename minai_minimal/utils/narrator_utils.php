@@ -1,5 +1,18 @@
 <?php
 Function SetNarratorPrompts($isFirstPerson = false) {
+    // Check if user has provided a custom narrator prompt
+    if (isset($GLOBALS['narrator_prompt']) && !empty($GLOBALS['narrator_prompt'])) {
+        // Use custom narrator prompt
+        $narratorPrompt = [
+            "cue" => [$GLOBALS['narrator_prompt']]
+        ];
+        $templateDialog = $GLOBALS['narrator_prompt'];
+        
+        $GLOBALS["roleplay_settings"]["llm_narrator"] = $narratorPrompt;
+        $GLOBALS["roleplay_settings"]["template_dialog_narrator"] = $templateDialog;
+        return;
+    }
+    
     // Get the player's input if any
     $playerInput = isset($GLOBALS["gameRequest"]) && $GLOBALS["gameRequest"] != "" ? $GLOBALS["gameRequest"][3] : "";
     

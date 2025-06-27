@@ -137,14 +137,14 @@
                 
                 <div class="setting-group">
                     <label for="narrator_voice">Narrator Voice:</label>
-                    <select id="narrator_voice">
-                        <option value="dragon">Dragon (Default)</option>
-                        <option value="maleeventoned">Male Even-Toned</option>
-                        <option value="femaleeventoned">Female Even-Toned</option>
-                        <option value="malecommoner">Male Commoner</option>
-                        <option value="femalecommoner">Female Commoner</option>
-                    </select>
-                    <div class="description">Voice used for narrator thoughts</div>
+                    <input type="text" id="narrator_voice" placeholder="Enter voice model name (e.g. dragon, maleeventoned)">
+                    <div class="description">Voice used for narrator thoughts - enter any voice model name</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="narrator_prompt">Narrator Prompt:</label>
+                    <textarea id="narrator_prompt" placeholder="Enter custom narrator prompt..."></textarea>
+                    <div class="description">Custom prompt template for narrator thoughts</div>
                 </div>
             </div>
             
@@ -162,15 +162,14 @@
                 
                 <div class="setting-group">
                     <label for="player_voice_model">Player Voice:</label>
-                    <select id="player_voice_model">
-                        <option value="femaleeventoned">Female Even-Toned (Default)</option>
-                        <option value="maleeventoned">Male Even-Toned</option>
-                        <option value="femalecommoner">Female Commoner</option>
-                        <option value="malecommoner">Male Commoner</option>
-                        <option value="femalecondescending">Female Condescending</option>
-                        <option value="malecondescending">Male Condescending</option>
-                    </select>
-                    <div class="description">Voice used for translated player dialogue</div>
+                    <input type="text" id="player_voice_model" placeholder="Enter voice model name (e.g. femaleeventoned, maleeventoned)">
+                    <div class="description">Voice used for translated player dialogue - enter any voice model name</div>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="translation_prompt">Translation Prompt:</label>
+                    <textarea id="translation_prompt" placeholder="Enter custom translation prompt..."></textarea>
+                    <div class="description">Custom prompt template for translating casual speech</div>
                 </div>
                 
                 <div class="setting-group">
@@ -211,8 +210,10 @@
             const config = {
                 self_narrator: document.getElementById('self_narrator').checked,
                 narrator_voice: document.getElementById('narrator_voice').value,
+                narrator_prompt: document.getElementById('narrator_prompt').value,
                 translation_enabled: document.getElementById('translation_enabled').checked,
                 player_voice_model: document.getElementById('player_voice_model').value,
+                translation_prompt: document.getElementById('translation_prompt').value,
                 auto_translation: document.getElementById('auto_translation').checked,
                 minai_enabled: document.getElementById('minai_enabled').checked,
                 context_messages: parseInt(document.getElementById('context_messages').value)
@@ -246,8 +247,10 @@
         .then(config => {
             if (config.self_narrator !== undefined) document.getElementById('self_narrator').checked = config.self_narrator;
             if (config.narrator_voice) document.getElementById('narrator_voice').value = config.narrator_voice;
+            if (config.narrator_prompt) document.getElementById('narrator_prompt').value = config.narrator_prompt;
             if (config.translation_enabled !== undefined) document.getElementById('translation_enabled').checked = config.translation_enabled;
             if (config.player_voice_model) document.getElementById('player_voice_model').value = config.player_voice_model;
+            if (config.translation_prompt) document.getElementById('translation_prompt').value = config.translation_prompt;
             if (config.auto_translation !== undefined) document.getElementById('auto_translation').checked = config.auto_translation;
             if (config.minai_enabled !== undefined) document.getElementById('minai_enabled').checked = config.minai_enabled;
             if (config.context_messages) document.getElementById('context_messages').value = config.context_messages;

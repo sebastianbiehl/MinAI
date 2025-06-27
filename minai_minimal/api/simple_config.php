@@ -19,12 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $GLOBALS['devious_narrator_eldritch_voice'] = $input['narrator_voice'];
             }
             
+            if (isset($input['narrator_prompt'])) {
+                $GLOBALS['narrator_prompt'] = $input['narrator_prompt'];
+            }
+            
             if (isset($input['translation_enabled'])) {
                 $GLOBALS['translation_enabled'] = $input['translation_enabled'];
             }
             
             if (isset($input['player_voice_model'])) {
                 $GLOBALS['player_voice_model'] = $input['player_voice_model'];
+            }
+            
+            if (isset($input['translation_prompt'])) {
+                $GLOBALS['translation_prompt'] = $input['translation_prompt'];
             }
             
             if (isset($input['minai_enabled'])) {
@@ -39,8 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $configData = [
                 'self_narrator' => $GLOBALS['self_narrator'],
                 'narrator_voice' => $GLOBALS['devious_narrator_eldritch_voice'],
+                'narrator_prompt' => isset($GLOBALS['narrator_prompt']) ? $GLOBALS['narrator_prompt'] : '',
                 'translation_enabled' => isset($GLOBALS['translation_enabled']) ? $GLOBALS['translation_enabled'] : true,
                 'player_voice_model' => $GLOBALS['player_voice_model'],
+                'translation_prompt' => isset($GLOBALS['translation_prompt']) ? $GLOBALS['translation_prompt'] : '',
                 'minai_enabled' => isset($GLOBALS['minai_enabled']) ? $GLOBALS['minai_enabled'] : true,
                 'context_messages' => $GLOBALS['roleplay_settings']['context_messages']
             ];
@@ -85,8 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $config = [
             'self_narrator' => isset($savedConfig['self_narrator']) ? $savedConfig['self_narrator'] : (isset($GLOBALS['self_narrator']) ? $GLOBALS['self_narrator'] : false),
             'narrator_voice' => isset($savedConfig['narrator_voice']) ? $savedConfig['narrator_voice'] : (isset($GLOBALS['devious_narrator_eldritch_voice']) ? $GLOBALS['devious_narrator_eldritch_voice'] : 'dragon'),
+            'narrator_prompt' => isset($savedConfig['narrator_prompt']) ? $savedConfig['narrator_prompt'] : (isset($GLOBALS['narrator_prompt']) ? $GLOBALS['narrator_prompt'] : ''),
             'translation_enabled' => isset($savedConfig['translation_enabled']) ? $savedConfig['translation_enabled'] : (isset($GLOBALS['translation_enabled']) ? $GLOBALS['translation_enabled'] : true),
             'player_voice_model' => isset($savedConfig['player_voice_model']) ? $savedConfig['player_voice_model'] : (isset($GLOBALS['player_voice_model']) ? $GLOBALS['player_voice_model'] : 'femaleeventoned'),
+            'translation_prompt' => isset($savedConfig['translation_prompt']) ? $savedConfig['translation_prompt'] : (isset($GLOBALS['translation_prompt']) ? $GLOBALS['translation_prompt'] : ''),
             'minai_enabled' => isset($savedConfig['minai_enabled']) ? $savedConfig['minai_enabled'] : (isset($GLOBALS['minai_enabled']) ? $GLOBALS['minai_enabled'] : true),
             'context_messages' => isset($savedConfig['context_messages']) ? $savedConfig['context_messages'] : (isset($GLOBALS['roleplay_settings']['context_messages']) ? $GLOBALS['roleplay_settings']['context_messages'] : 10)
         ];

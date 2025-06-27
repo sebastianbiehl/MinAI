@@ -14,6 +14,38 @@ if (isset($GLOBALS["minai_skip_processing"]) && $GLOBALS["minai_skip_processing"
     return;
 }
 require_once("config.php");
+
+// Load user configuration overrides
+function loadUserConfig() {
+    $configFile = __DIR__ . "/user_config.json";
+    if (file_exists($configFile)) {
+        $userConfig = json_decode(file_get_contents($configFile), true);
+        if ($userConfig) {
+            // Apply user overrides
+            if (isset($userConfig['narrator_prompt']) && !empty($userConfig['narrator_prompt'])) {
+                $GLOBALS['narrator_prompt'] = $userConfig['narrator_prompt'];
+            }
+            if (isset($userConfig['translation_prompt']) && !empty($userConfig['translation_prompt'])) {
+                $GLOBALS['translation_prompt'] = $userConfig['translation_prompt'];
+            }
+            // Apply other settings
+            if (isset($userConfig['self_narrator'])) {
+                $GLOBALS['self_narrator'] = $userConfig['self_narrator'];
+            }
+            if (isset($userConfig['translation_enabled'])) {
+                $GLOBALS['translation_enabled'] = $userConfig['translation_enabled'];
+            }
+            if (isset($userConfig['player_voice_model'])) {
+                $GLOBALS['player_voice_model'] = $userConfig['player_voice_model'];
+            }
+            if (isset($userConfig['narrator_voice'])) {
+                $GLOBALS['devious_narrator_eldritch_voice'] = $userConfig['narrator_voice'];
+            }
+        }
+    }
+}
+loadUserConfig();
+
 require_once("util.php");
 require_once("contextbuilders.php");
 require_once("prompts/info_prompts.php");

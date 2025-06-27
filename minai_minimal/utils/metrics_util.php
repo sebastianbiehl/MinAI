@@ -13,6 +13,8 @@ if (!defined('MINAI_METRICS_UTIL_LOADED')) {
 
 require_once(__DIR__ . "/../logger.php");
 
+// Check if class already exists (prevents conflicts with full plugin version)
+if (!class_exists('MinAIMetrics')) {
 class MinAIMetrics {
     private static $instance = null;
     private $metricsEnabled = true;
@@ -534,6 +536,7 @@ class MinAIMetrics {
         return end($this->activeTimers);
     }
 }
+} // End of class_exists check
 
 /**
  * Helper function to start a timer

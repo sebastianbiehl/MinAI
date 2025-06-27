@@ -298,12 +298,19 @@ function interceptRoleplayInput() {
             $systemPrompt = $settings['system_prompt'];
             $requestFormat = $settings['translation_request'];
             
-            if ($isExplicit) {
-                $systemPrompt = $settings['system_prompt_explicit'];
-                $requestFormat = $settings['translation_request_explicit'];
-            } else if ($inCombat) {
-                $systemPrompt = $settings['system_prompt_combat'];
-                $requestFormat = $settings['translation_request_combat'];
+            // Check if user has provided a custom translation prompt
+            if (isset($GLOBALS['translation_prompt']) && !empty($GLOBALS['translation_prompt'])) {
+                // Use custom translation prompt for all scenarios
+                $requestFormat = $GLOBALS['translation_prompt'];
+            } else {
+                // Use default prompts based on context
+                if ($isExplicit) {
+                    $systemPrompt = $settings['system_prompt_explicit'];
+                    $requestFormat = $settings['translation_request_explicit'];
+                } else if ($inCombat) {
+                    $systemPrompt = $settings['system_prompt_combat'];
+                    $requestFormat = $settings['translation_request_combat'];
+                }
             }
         }
 
