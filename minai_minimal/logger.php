@@ -1,6 +1,7 @@
 <?php
 // HerikaServer logger not needed in minimal version
 // include_once("/var/www/html/HerikaServer/lib/logger.php");
+if (!function_exists('minai_log')) {
 function minai_log($level, $message, $logFile = 'minai.log') {
     // Ensure level is lowercase for consistency
     $level = strtolower($level);
@@ -14,6 +15,11 @@ function minai_log($level, $message, $logFile = 'minai.log') {
     // Construct the full path
     $logPath = "/var/www/html/HerikaServer/log/{$logFile}";
     
-    // Append to log file
-    file_put_contents($logPath, $logEntry, FILE_APPEND);
+    // Append to log file with error handling
+    $result = @file_put_contents($logPath, $logEntry, FILE_APPEND);
+    if ($result === false) {
+        // Fallback to error_log if file write fails
+        error_log("MinAI [{$level}] {$message}");
+    }
+}
 }

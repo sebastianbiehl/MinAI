@@ -27,6 +27,11 @@ $GLOBALS['use_llm_fallback'] = false;
 $GLOBALS['enforce_single_json'] = false;
 $GLOBALS['CHIM_NO_EXAMPLES'] = false;
 
+// MinAI Minimal specific settings
+$GLOBALS['player_voice_model'] = 'femaleeventoned';
+$GLOBALS['translation_enabled'] = true;
+$GLOBALS['minai_enabled'] = true;
+
 // Context Builder Configuration - Minimal setup for narrator and translation only
 $GLOBALS['minai_context'] = array(
     // Basic character context

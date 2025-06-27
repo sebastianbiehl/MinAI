@@ -46,7 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
             
             $configFile = __DIR__ . "/../user_config.json";
-            file_put_contents($configFile, json_encode($configData, JSON_PRETTY_PRINT));
+            
+            // Check if directory is writable
+            $directory = dirname($configFile);
+            if (!is_writable($directory)) {
+                echo json_encode(['success' => false, 'message' => 'Configuration directory is not writable. Please set permissions: chmod 755 ' . $directory]);
+                exit;
+            }
+            
+            // Try to write the file
+            $result = file_put_contents($configFile, json_encode($configData, JSON_PRETTY_PRINT));
+            if ($result === false) {
+                echo json_encode(['success' => false, 'message' => 'Failed to write configuration file. Please check file permissions.']);
+                exit;
+            }
             
             echo json_encode(['success' => true, 'message' => 'Configuration saved successfully']);
             
@@ -68,14 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $savedConfig = [];
         }
         
-        // Return current configuration
+        // Return current configuration with safe defaults
         $config = [
-            'self_narrator' => isset($savedConfig['self_narrator']) ? $savedConfig['self_narrator'] : $GLOBALS['self_narrator'],
-            'narrator_voice' => isset($savedConfig['narrator_voice']) ? $savedConfig['narrator_voice'] : $GLOBALS['devious_narrator_eldritch_voice'],
-            'translation_enabled' => isset($savedConfig['translation_enabled']) ? $savedConfig['translation_enabled'] : true,
-            'player_voice_model' => isset($savedConfig['player_voice_model']) ? $savedConfig['player_voice_model'] : $GLOBALS['player_voice_model'],
-            'minai_enabled' => isset($savedConfig['minai_enabled']) ? $savedConfig['minai_enabled'] : true,
-            'context_messages' => isset($savedConfig['context_messages']) ? $savedConfig['context_messages'] : $GLOBALS['roleplay_settings']['context_messages']
+            'self_narrator' => isset($savedConfig['self_narrator']) ? $savedConfig['self_narrator'] : (isset($GLOBALS['self_narrator']) ? $GLOBALS['self_narrator'] : false),
+            'narrator_voice' => isset($savedConfig['narrator_voice']) ? $savedConfig['narrator_voice'] : (isset($GLOBALS['devious_narrator_eldritch_voice']) ? $GLOBALS['devious_narrator_eldritch_voice'] : 'dragon'),
+            'translation_enabled' => isset($savedConfig['translation_enabled']) ? $savedConfig['translation_enabled'] : (isset($GLOBALS['translation_enabled']) ? $GLOBALS['translation_enabled'] : true),
+            'player_voice_model' => isset($savedConfig['player_voice_model']) ? $savedConfig['player_voice_model'] : (isset($GLOBALS['player_voice_model']) ? $GLOBALS['player_voice_model'] : 'femaleeventoned'),
+            'minai_enabled' => isset($savedConfig['minai_enabled']) ? $savedConfig['minai_enabled'] : (isset($GLOBALS['minai_enabled']) ? $GLOBALS['minai_enabled'] : true),
+            'context_messages' => isset($savedConfig['context_messages']) ? $savedConfig['context_messages'] : (isset($GLOBALS['roleplay_settings']['context_messages']) ? $GLOBALS['roleplay_settings']['context_messages'] : 10)
         ];
         
         echo json_encode($config);

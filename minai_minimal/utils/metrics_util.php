@@ -7,6 +7,10 @@
  * information to help analyze system performance.
  */
 
+// Prevent multiple inclusions
+if (!defined('MINAI_METRICS_UTIL_LOADED')) {
+    define('MINAI_METRICS_UTIL_LOADED', true);
+
 require_once(__DIR__ . "/../logger.php");
 
 class MinAIMetrics {
@@ -537,13 +541,15 @@ class MinAIMetrics {
  * @param string $name Name of the timer
  * @param string|null $parentComponent Name of the parent component (for hierarchy)
  */
-function minai_start_timer($name, $parentComponent = null) {
-    // If parent component is not explicitly set but we're inside another timer,
-    // use the current active timer as parent
-    if ($parentComponent === null) {
-        $parentComponent = MinAIMetrics::getInstance()->getCurrentParent();
+if (!function_exists('minai_start_timer')) {
+    function minai_start_timer($name, $parentComponent = null) {
+        // If parent component is not explicitly set but we're inside another timer,
+        // use the current active timer as parent
+        if ($parentComponent === null) {
+            $parentComponent = MinAIMetrics::getInstance()->getCurrentParent();
+        }
+        MinAIMetrics::getInstance()->startTimer($name, $parentComponent);
     }
-    MinAIMetrics::getInstance()->startTimer($name, $parentComponent);
 }
 
 /**
@@ -553,8 +559,10 @@ function minai_start_timer($name, $parentComponent = null) {
  * @param array $additionalData Additional data to record
  * @return float|null Duration in seconds or null if timer not found/disabled
  */
-function minai_stop_timer($name, $additionalData = []) {
-    return MinAIMetrics::getInstance()->stopTimer($name, $additionalData);
+if (!function_exists('minai_stop_timer')) {
+    function minai_stop_timer($name, $additionalData = []) {
+        return MinAIMetrics::getInstance()->stopTimer($name, $additionalData);
+    }
 }
 
 /**
@@ -563,8 +571,10 @@ function minai_stop_timer($name, $additionalData = []) {
  * @param string $type Type of metric
  * @param array $data Metric data
  */
-function minai_record_metric($type, $data) {
-    MinAIMetrics::getInstance()->recordMetric($type, $data);
+if (!function_exists('minai_record_metric')) {
+    function minai_record_metric($type, $data) {
+        MinAIMetrics::getInstance()->recordMetric($type, $data);
+    }
 }
 
 /**
@@ -572,8 +582,10 @@ function minai_record_metric($type, $data) {
  * 
  * @param bool $enabled Whether metrics should be enabled
  */
-function minai_set_metrics_enabled($enabled) {
-    MinAIMetrics::getInstance()->setEnabled($enabled);
+if (!function_exists('minai_set_metrics_enabled')) {
+    function minai_set_metrics_enabled($enabled) {
+        MinAIMetrics::getInstance()->setEnabled($enabled);
+    }
 }
 
 /**
@@ -581,8 +593,10 @@ function minai_set_metrics_enabled($enabled) {
  * 
  * @return bool Whether metrics are enabled
  */
-function minai_is_metrics_enabled() {
-    return MinAIMetrics::getInstance()->isEnabled();
+if (!function_exists('minai_is_metrics_enabled')) {
+    function minai_is_metrics_enabled() {
+        return MinAIMetrics::getInstance()->isEnabled();
+    }
 }
 
 /**
@@ -591,8 +605,10 @@ function minai_is_metrics_enabled() {
  * @param int $maxSizeMB Maximum log file size in MB before rotation
  * @param int $maxFiles Maximum number of rotated log files to keep
  */
-function minai_configure_log_rotation($maxSizeMB = 10, $maxFiles = 5) {
-    MinAIMetrics::getInstance()->configureLogRotation($maxSizeMB, $maxFiles);
+if (!function_exists('minai_configure_log_rotation')) {
+    function minai_configure_log_rotation($maxSizeMB = 10, $maxFiles = 5) {
+        MinAIMetrics::getInstance()->configureLogRotation($maxSizeMB, $maxFiles);
+    }
 }
 
 /**
@@ -667,5 +683,7 @@ class MinAITimerScope {
         $this->stop();
     }
 }
+
+} // End of include guard
 
 
