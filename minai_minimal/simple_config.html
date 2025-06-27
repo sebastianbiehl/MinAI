@@ -218,7 +218,7 @@
                 context_messages: parseInt(document.getElementById('context_messages').value)
             };
             
-            fetch('/HerikaServer/ext/minai_minimal/api/config.php', {
+            fetch('api/simple_config.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -241,7 +241,7 @@
         });
         
         // Load current configuration
-        fetch('/HerikaServer/ext/minai_minimal/api/config.php')
+        fetch('api/simple_config.php')
         .then(response => response.json())
         .then(config => {
             if (config.self_narrator !== undefined) document.getElementById('self_narrator').checked = config.self_narrator;
